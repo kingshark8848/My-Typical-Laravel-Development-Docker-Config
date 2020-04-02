@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y mysql-client* \
         openssh-client \
         openssh-server \
         curl \
+        librdkafka-dev \
         net-tools \
         && ln -s /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib 
 
@@ -53,7 +54,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
         && sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # Install PECL extensions (Redis)
-RUN pecl install redis
+RUN pecl install redis && pecl install rdkafka
 
 # Install laravel-echo-server (Websocket Server)
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash \
@@ -66,6 +67,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Write Permission
 RUN usermod -u 1000 www-data
+
+# Not important installs
+RUN apt-get update && apt-get install -y
 
 COPY ./laravel-echo-server.json /home/
 COPY ./docker-entrypoint.sh /home/

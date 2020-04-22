@@ -1,0 +1,4 @@
+version: '3'
+services:
+    php-fpm:
+        entrypoint: /home/docker-entrypoint_no-install.sh

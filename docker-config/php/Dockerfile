@@ -73,6 +73,7 @@ RUN apt-get update && apt-get install -y
 
 COPY ./laravel-echo-server.json /home/
 COPY ./docker-entrypoint.sh /home/
+COPY ./docker-entrypoint_no-install.sh /home/
 COPY ./php-fpm.conf /usr/local/etc/
 COPY ./php.ini /usr/local/etc/php/
 

@@ -54,7 +54,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
         && sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
 # Install PECL extensions (Redis)
-RUN pecl install redis && pecl install rdkafka
+RUN pecl install xdebug && pecl install redis && pecl install rdkafka
 
 # Install laravel-echo-server (Websocket Server)
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash \

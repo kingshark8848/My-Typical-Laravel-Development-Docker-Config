@@ -66,9 +66,13 @@ services:
         tty: true
         volumes:
             - ./src:/var/www
+            - ./docker-config/php/php.ini:/usr/local/etc/php/php.ini
         working_dir: /var/www
         ports:
             - '9091:9000'
+        environment:
+            XDEBUG_CONFIG: "remote_host=host.docker.internal"
+            PHP_IDE_CONFIG: "serverName=api_logix_crm-docker"
         # env_file: 
         #     - ./src/.env
         networks:

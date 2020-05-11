@@ -82,6 +82,7 @@ services:
             - elasticsearch
             - redis-db
             - kafka-1
+            - kafka-2
         entrypoint: /home/docker-entrypoint.sh
 
     # Nginx
@@ -115,11 +116,32 @@ services:
             KAFKA_ADVERTISED_HOST_NAME:  192.168.0.200
             KAFKA_ADVERTISED_PORT: 9095
             KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+            KAFKA_LOG_DIRS: /kafka/logs
+            KAFKA_BROKER_ID: 500
+            KAFKA_offsets_topic_replication_factor: 2
         volumes:
             - ./docker-data/kafka/var/run/docker.sock:/var/run/docker.sock
-            - ./docker-data/kafka/data:/kafka
+            - ./docker-data/kafka/broker_500:/kafka
         networks:
             - api_crm
         depends_on:
             - zookeeper
 
+    kafka-2:
+        image: wurstmeister/kafka
+        ports:
+            - "9096:9092"
+        environment:
+            KAFKA_ADVERTISED_HOST_NAME:  192.168.0.200
+            KAFKA_ADVERTISED_PORT: 9096
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+            KAFKA_LOG_DIRS: /kafka/logs
+            KAFKA_BROKER_ID: 501
+            KAFKA_offsets_topic_replication_factor: 2
+        volumes:
+            - ./docker-data/kafka/var/run/docker.sock:/var/run/docker.sock
+            - ./docker-data/kafka/broker_501:/kafka
+        networks:
+            - api_crm
+        depends_on:
+            - zookeeper

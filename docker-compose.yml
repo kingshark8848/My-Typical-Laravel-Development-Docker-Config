@@ -101,7 +101,16 @@ services:
 
 
     zookeeper:
-        image: wurstmeister/zookeeper
+        image: bitnami/zookeeper:latest
+        hostname: zookeeper
+        privileged: true
+        environment:
+            ALLOW_ANONYMOUS_LOGIN: "yes"
+            ZOO_AUTOPURGE_INTERVAL: 1
+            ZOO_AUTOPURGE_RETAIN_COUNT: 3
+        volumes:
+            - ./docker-data/zookeeper/data:/bitnami/zookeeper
+#            - ./docker-config/zookeeper/zoo.cfg:/opt/bitnami/zookeeper/conf/zoo.cfg
         ports:
             - "2181:2181"
         networks:

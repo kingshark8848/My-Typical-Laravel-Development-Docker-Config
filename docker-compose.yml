@@ -108,9 +108,9 @@ services:
             ALLOW_ANONYMOUS_LOGIN: "yes"
             ZOO_AUTOPURGE_INTERVAL: 1
             ZOO_AUTOPURGE_RETAIN_COUNT: 3
-        volumes:
-            - ./docker-data/zookeeper/data:/bitnami/zookeeper
-#            - ./docker-config/zookeeper/zoo.cfg:/opt/bitnami/zookeeper/conf/zoo.cfg
+#         volumes:
+#             - ./docker-data/zookeeper/data:/bitnami/zookeeper
+# #            - ./docker-config/zookeeper/zoo.cfg:/opt/bitnami/zookeeper/conf/zoo.cfg
         ports:
             - "2181:2181"
         networks:
@@ -128,9 +128,9 @@ services:
             KAFKA_LOG_DIRS: /kafka/logs
             KAFKA_BROKER_ID: 500
             KAFKA_offsets_topic_replication_factor: 2
-        volumes:
-            - ./docker-data/kafka/var/run/docker.sock:/var/run/docker.sock
-            - ./docker-data/kafka/broker_500:/kafka
+        # volumes:
+        #     - ./docker-data/kafka/var/run/docker.sock:/var/run/docker.sock
+        #     - ./docker-data/kafka/broker_500:/kafka
         networks:
             - api_crm
         depends_on:
@@ -147,9 +147,9 @@ services:
             KAFKA_LOG_DIRS: /kafka/logs
             KAFKA_BROKER_ID: 501
             KAFKA_offsets_topic_replication_factor: 2
-        volumes:
-            - ./docker-data/kafka/var/run/docker.sock:/var/run/docker.sock
-            - ./docker-data/kafka/broker_501:/kafka
+        # volumes:
+        #     - ./docker-data/kafka/var/run/docker.sock:/var/run/docker.sock
+        #     - ./docker-data/kafka/broker_501:/kafka
         networks:
             - api_crm
         depends_on:
